@@ -4,8 +4,8 @@ from .user import User
 
 class Post(models.Model):
 
-    postedByUser = models.ForeignKey(User, on_delete=models.CASCADE)
-    ownerProfileId = models.ForeignKey(User, on_delete=models.CASCADE)
+    posted_by_user = models.ForeignKey(User, on_delete=models.CASCADE)
+    owner_profile_id = models.ForeignKey(User, on_delete=models.CASCADE)
     item_name = models.CharField(max_length=50)
     color = models.CharField(max_length=50)
     amount = models.CharField(max_length=50)
