@@ -1,0 +1,10 @@
+[
+  {
+    "model": "uncraftedapi.trademessage",
+    "pk": 1,
+    "fields": {
+      "message": 3,
+      "trade": 3
+    }
+  }
+]

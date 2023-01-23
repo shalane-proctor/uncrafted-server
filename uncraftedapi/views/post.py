@@ -11,7 +11,7 @@ class PostSerializer(serializers.ModelSerializer):
     """
     class Meta:
         model = Post
-        fields = ('id', 'posted_by_user', 'owner_profile_id', 'item_name',
+        fields = ('id', 'posted_by_user', 'owner_profile', 'item_name',
                   'color', 'amount', 'image_url', 'trade_preference', 'description', 'is_draft', 'is_pending')
         depth = 2
 
@@ -28,18 +28,18 @@ class PostView(ViewSet):
         user = request.query_params.get('posted_by_user', None)
         if user is not None:
             posts = posts.filter(uid=user.uid)
-        user = request.query_params.get('owner_profile_id', None)
+        user = request.query_params.get('owner_profile', None)
         if user is not None:
             posts = posts.filter(uid=user.uid)
         serializer = PostSerializer(posts, many=True)
         return Response(serializer.data)
 
     def create(self, request):
-        user = User.objects.get(uid=request.data["user"])
-        user = User.objects.get(uid=request.data["user"])
+        posted_by_user = User.objects.get(uid=request.data["user"])
+        owner_profile = User.objects.get(uid=request.data["user"])
         post = Post.objects.create(
-            posted_by_user=user,
-            owner_profile_id=user,
+            posted_by_user=posted_by_user,
+            owner_profile=owner_profile,
             item_name=request.data["item_name"],
             color=request.data["color"],
             amount=request.data["amount"],
@@ -55,8 +55,8 @@ class PostView(ViewSet):
     def update(self, request, pk):
 
         post = Post.objects.get(pk=pk)
-        user = User.objects.get(uid=request.data["user"]),
-        post.owner_profile_id = user,
+        owner_profile = User.objects.get(uid=request.data["owner_profile"]),
+        post.owner_profile = owner_profile,
         post.item_name = request.data["item_name"],
         post.color = request.data["color"],
         post.amount = request.data["amount"],

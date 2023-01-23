@@ -1,0 +1,50 @@
+[
+  {
+    "model": "uncraftedapi.post",
+    "pk": 1,
+    "fields": {
+      "posted_by_user": 3,
+      "owner_profile": 3,
+      "item_name": "Floof",
+      "color": "pink",
+      "amount": "5oz",
+      "image_url": "https://i.etsystatic.com/5184334/r/il/2b24cc/2845953320/il_fullxfull.2845953320_sqcm.jpg",
+      "trade_preferences": "sewing material, gardening equipment",
+      "description": "This is left over pink floof from another project",
+      "is_draft": false,
+      "is_pending": false
+    }
+  },
+  {
+    "model": "uncraftedapi.post",
+    "pk": 2,
+    "fields": {
+      "posted_by_user": 1,
+      "owner_profile": 2,
+      "item_name": "Clay",
+      "color": "red",
+      "amount": "10lb",
+      "image_url": "https://wheelandclay.com/wp-content/uploads/2022/01/4-types-of-clay.jpeg",
+      "trade_preferences": "Guitar strings, clay",
+      "description": "I was working on creating some model castles, but lost intrest.",
+      "is_draft": false,
+      "is_pending": false
+    }
+  },
+  {
+    "model": "uncraftedapi.post",
+    "pk": 3,
+    "fields": {
+      "posted_by_user": 2,
+      "owner_profile": 2,
+      "item_name": "Clay",
+      "color": "red",
+      "amount": "10lb",
+      "image_url": "https://wheelandclay.com/wp-content/uploads/2022/01/4-types-of-clay.jpeg",
+      "trade_preferences": "Guitar strings, clay",
+      "description": "I was working on creating some model castles, but lost intrest.",
+      "is_draft": false,
+      "is_pending": false
+    }
+  }
+]

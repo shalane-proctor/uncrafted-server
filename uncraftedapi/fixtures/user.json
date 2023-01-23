@@ -1,0 +1,41 @@
+[
+    {
+        "model": "uncraftedapi.user",
+        "pk": 1,
+        "fields": {
+            "uid": "54d4fg5f4g5",
+            "username": "SowSew",
+            "email": "sowsew@gmail.com",
+            "about": "I enjoy gardening and sewing",
+            "profile_image_url": "https://arc-anglerfish-washpost-prod-washpost.s3.amazonaws.com/public/WALN4MAIT4I6VLRIPUMJQAJIME.jpg",
+            "instagram": "http://www.instagram.com/sowsew",
+            "etsy": "http://www.etsy.com/sowsew"
+        }
+    },
+    {
+      "model": "uncraftedapi.user",
+      "pk": 2,
+      "fields": {
+        "uid": "drg6s45fg6",
+        "username": "drewproctor95",
+        "email": "drewproctor@gmail.com",
+        "about": "Music and art enthusiast with a love for creating something new. Pick up the guitar and draw my way through life!",
+        "profile_image_url": "https://static.vecteezy.com/system/resources/previews/003/808/424/original/cute-happy-kawaii-cat-vector.jpg",
+        "instagram": "http://www.instagram.com/docproc",
+        "etsy": "http://www.etsy.com/docproc"
+      }
+    },
+    {
+        "model": "uncraftedapi.user",
+        "pk": 3,
+        "fields": {
+            "uid": "15654sdfdf",
+            "username": "purplepariah",
+            "email": "purplepariahart@gmail.com",
+            "about": "Creative by nature, art is my passion. From painting to clay and digital art, I'm always experimenting with new mediums and styles. Let's make something beautiful together!",
+            "profile_image_url": "https://i.pinimg.com/originals/5c/03/d7/5c03d7be7910fe83bacb1cf414f24426.jpg",
+            "instagram": "http://www.instagram.com/purplepariah",
+            "etsy": "http://www.etsy.com/purplepariah"
+          }
+    }
+]

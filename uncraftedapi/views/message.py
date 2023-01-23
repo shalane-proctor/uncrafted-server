@@ -27,19 +27,19 @@ class MessageView(ViewSet):
         messages = Message.objects.all()
         user = request.query_params.get('sender', None)
         if user is not None:
-            messages = messages.filter(uid=user.uid)
+            messages = messages.filter(uid = user.uid)
         user = request.query_params.get('receiver', None)
         if user is not None:
-            messages = messages.filter(uid=user.uid)
+            messages = messages.filter(uid = user.uid)
         serializer = MessageSerializer(messages, many=True)
         return Response(serializer.data)
 
     def create(self, request):
-        user = User.objects.get(uid=request.data["user"])
-        user = User.objects.get(uid=request.data["user"])
+        sender = User.objects.get(uid = request.data["sender"])
+        receiver = User.objects.get(uid = request.data["receiver"])
         message = Message.objects.create(
-            sender=user,
-            receiver=user,
+            sender=sender,
+            receiver=receiver,
             subject=request.data["subject"],
             message_content=request.data["message_content"],
             is_new=request.data["is_new"],
@@ -50,10 +50,11 @@ class MessageView(ViewSet):
 
     def update(self, request, pk):
 
-        message = message.objects.get(pk=pk)
-        user = User.objects.get(uid=request.data["user"]),
-        message.sender = user,
-        message.receiver = user,
+        message = Message.objects.get(pk=pk)
+        # sender = User.objects.get(uid=request.data["sender"]),
+        # receiver = User.objects.get(uid=request.data["receiver"]),
+        # message.sender = sender,
+        # message.receiver = receiver,
         message.subject = request.data["subject"],
         message.message_content = request.data["message_content"],
         message.is_new = request.data["is_new"],

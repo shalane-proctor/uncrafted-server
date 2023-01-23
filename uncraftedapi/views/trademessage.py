@@ -8,8 +8,8 @@ from uncraftedapi.models import TradeMessage, Message, Trade
 class TradeMessageSerializer(serializers.ModelSerializer):
     class Meta:
         model = TradeMessage
-        fields = ('id', 'post_id', 'reaction_id', 'user_id')
-        depth = 0
+        fields = ('id', 'message', 'trade')
+        depth = 1
 class TradeMessageView(ViewSet):
   
     def retrieve(self, request, pk):
@@ -39,23 +39,16 @@ class TradeMessageView(ViewSet):
         return Response(serializer.data)
 
     def update(self, request, pk):
-
-        post = Post.objects.get(pk=pk)
-        user = User.objects.get(uid=request.data["user"]),
-        post.owner_profile_id = user,
-        post.item_name = request.data["item_name"],
-        post.color = request.data["color"],
-        post.amount = request.data["amount"],
-        post.image_url = request.data["image_url"],
-        post.trade_preference = request.data["trade_preference"],
-        post.description = request.data["desription"],
-        post.is_draft = request.data["is_draft"],
-        post.is_pending = request.data["is_pending"],
-        post.save()
+        trade_message = TradeMessage.objects.get(pk=pk)
+        message = Message.objects.get(pk=pk)
+        trade = Trade.objects.get(pk=pk),
+        trade_message.message = message,
+        trade_message.trade = trade
+        trade_message.save()
 
         return Response(None, status=status.HTTP_204_NO_CONTENT)
 
     def destroy(self, request, pk):
-        post = Post.objects.get(pk=pk)
-        post.delete()
+        trade_message = TradeMessage.objects.get(pk=pk)
+        trade_message.delete()
         return Response(None, status=status.HTTP_204_NO_CONTENT)
