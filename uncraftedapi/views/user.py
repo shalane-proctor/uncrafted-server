@@ -8,7 +8,7 @@ from uncraftedapi.models import User
 class UserSerializer(serializers.ModelSerializer):
   class Meta:
       model = User
-      fields = ('id', 'uid', 'username', 'email', 'about',
+      fields = ('id', 'uid', 'username', 'favorite_craft', 'email', 'about',
                 'profile_image_url', 'instagram', 'etsy')
 class UserView(ViewSet):
     def retrieve(self, request, pk):
@@ -29,6 +29,7 @@ class UserView(ViewSet):
         user = User.objects.create(
             uid=request.data["uid"],
             username=request.data["username"],
+            favorite_craft=request.data["favorite_craft"],
             email=request.data["email"],
             about=request.data["about"],
             profile_image_url=request.data["profile_image_url"],
@@ -42,6 +43,7 @@ class UserView(ViewSet):
         user = User.objects.get(pk=pk)
         user.uid = request.data["uid"]
         user.username = request.data["username"]
+        user.favorite_craft = request.data["favorite_craft"]
         user.email = request.data["email"]
         user.about = request.data["about"]
         user.profile_image_url = request.data["profile_image_url"]
