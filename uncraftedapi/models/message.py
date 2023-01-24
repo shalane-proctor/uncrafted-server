@@ -9,6 +9,3 @@ class Message(models.Model):
     message_content = models.CharField(max_length=1000)
     is_new = models.BooleanField()
     connected_to_trade = models.BooleanField()
-
-    def __str__(self):
-        return self.message

@@ -27,9 +27,10 @@ class UserView(ViewSet):
 
     def create(self, request):
         user = User.objects.create(
+            uid=request.data["uid"],
             username=request.data["username"],
             email=request.data["email"],
-            bio=request.data["bio"],
+            about=request.data["about"],
             profile_image_url=request.data["profile_image_url"],
             instagram=request.data["instagram"],
             etsy=request.data["etsy"],
@@ -39,12 +40,14 @@ class UserView(ViewSet):
 
     def update(self, request, pk):
         user = User.objects.get(pk=pk)
+        user.uid = request.data["uid"]
         user.username = request.data["username"]
         user.email = request.data["email"]
         user.about = request.data["about"]
         user.profile_image_url = request.data["profile_image_url"]
         user.instagram = request.data["instagram"]
         user.etsy = request.data["etsy"]
+        user.save()
 
         return Response(None, status=status.HTTP_204_NO_CONTENT)
 

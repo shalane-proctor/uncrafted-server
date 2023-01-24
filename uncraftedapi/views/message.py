@@ -13,7 +13,7 @@ class MessageSerializer(serializers.ModelSerializer):
         model = Message
         fields = ('id', 'sender', 'receiver', 'subject',
                   'message_content', 'is_new', 'connected_to_trade')
-        depth = 2
+        depth = 1
 
 
 class MessageView(ViewSet):
@@ -49,16 +49,15 @@ class MessageView(ViewSet):
         return Response(serializer.data)
 
     def update(self, request, pk):
-
         message = Message.objects.get(pk=pk)
-        # sender = User.objects.get(uid=request.data["sender"]),
-        # receiver = User.objects.get(uid=request.data["receiver"]),
-        # message.sender = sender,
-        # message.receiver = receiver,
-        message.subject = request.data["subject"],
-        message.message_content = request.data["message_content"],
-        message.is_new = request.data["is_new"],
-        message.connected_to_trade = request.data["connected_to_trade"],
+        sender_id = User.objects.get(sender_id = request.data["sender_id"])
+        receiver_id = User.objects.get(receiver_id = request.data["receiver_id"])
+        message.sender_id = sender_id
+        message.receiver_id = receiver_id
+        message.subject = request.data["subject"]
+        message.message_content = request.data["message_content"]
+        message.is_new = request.data['is_new']
+        message.connected_to_trade = request.data['connected_to_trade']
         message.save()
 
         return Response(None, status=status.HTTP_204_NO_CONTENT)

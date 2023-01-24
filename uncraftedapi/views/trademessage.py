@@ -9,7 +9,7 @@ class TradeMessageSerializer(serializers.ModelSerializer):
     class Meta:
         model = TradeMessage
         fields = ('id', 'message', 'trade')
-        depth = 1
+        depth = 2
 class TradeMessageView(ViewSet):
   
     def retrieve(self, request, pk):
@@ -21,16 +21,16 @@ class TradeMessageView(ViewSet):
         trade_messages = TradeMessage.objects.all()
         message = request.query_params.get('message', None)
         if message is not None:
-            trade_messages = trade_messages.filter(message_id=message)
+            message = trade_messages.filter(message=message.id)
         trade = request.query_params.get('trade', None)
         if trade is not None:
-            trade_messages = trade_messages.filter(trade_id=trade)
+            trade = trade_messages.filter(trade=trade.id)
         serializer = TradeMessageSerializer(trade_messages, many=True)
         return Response(serializer.data)
 
     def create(self, request):
-        message = Message.objects.get(message_id=request.data["message"])
-        trade = Trade.objects.get(trade=request.data["trade"])
+        message = Message.objects.get(pk=request.data["message"])
+        trade = Trade.objects.get(pk=request.data["trade"])
         trade_message = TradeMessage.objects.create(
             message=message,
             trade=trade,
@@ -40,9 +40,9 @@ class TradeMessageView(ViewSet):
 
     def update(self, request, pk):
         trade_message = TradeMessage.objects.get(pk=pk)
-        message = Message.objects.get(pk=pk)
-        trade = Trade.objects.get(pk=pk),
-        trade_message.message = message,
+        message = Message.objects.get(pk=request.data["message"])
+        trade = Trade.objects.get(pk=request.data["trade"])
+        trade_message.message = message
         trade_message.trade = trade
         trade_message.save()
 
