@@ -13,9 +13,24 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from uncraftedapi.views import UserView, PostView, TradeView, MessageView, TradeMessageView
+from rest_framework import routers
+from uncraftedapi.views import check_user, register_user
+from django.conf.urls import include
 from django.contrib import admin
 from django.urls import path
 
+router = routers.DefaultRouter(trailing_slash=False)
+router.register(r'user', UserView, 'user')
+router.register(r'post', PostView, 'post')
+router.register(r'trade', TradeView, 'trade')
+router.register(r'message', MessageView, 'message')
+router.register(r'trademessage', TradeMessageView, 'trademessage')
+
 urlpatterns = [
+    path('register', register_user),
+    path('checkuser', check_user),
     path('admin/', admin.site.urls),
+    path('', include(router.urls)),
+    # path('post-comments/<int:post_id>/', PostCommentView.as_view(), name='posts')
 ]

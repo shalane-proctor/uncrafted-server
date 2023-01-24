@@ -1,0 +1,38 @@
+[
+  {
+    "model": "uncraftedapi.message",
+    "pk": 1,
+    "fields": {
+      "sender": 1,
+      "receiver": 2,
+      "subject": "This is a message",
+      "message_content": "Hi! You seem cool!",
+      "is_new": true,
+      "connected_to_trade": false
+    }
+  },
+  {
+    "model": "uncraftedapi.message",
+    "pk": 2,
+    "fields": {
+      "sender": 2,
+      "receiver": 1,
+      "subject": "RE: What's your address",
+      "message_content": "This is my address: 123 Sesame Street Chicago, IL",
+      "is_new": false,
+      "connected_to_trade": false
+    }
+  },
+  {
+    "model": "uncraftedapi.message",
+    "pk": 3,
+    "fields": {
+      "sender": 3,
+      "receiver": 1,
+      "subject": "What color?",
+      "message_content": "I like your item, what is the true color, can't tell from the pic?",
+      "is_new": true,
+      "connected_to_trade": true
+    }
+  }
+]

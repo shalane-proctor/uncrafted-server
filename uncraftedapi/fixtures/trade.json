@@ -1,0 +1,29 @@
+[
+  {
+    "model": "uncraftedapi.trade",
+    "pk": 1,
+    "fields": {
+      "item_wanted": 1,
+      "item_offered": 2,
+      "is_pending": true
+    }
+  },
+  {
+    "model": "uncraftedapi.trade",
+    "pk": 2,
+    "fields": {
+      "item_wanted": 1,
+      "item_offered": 3,
+      "is_pending": true
+    }
+  },
+  {
+    "model": "uncraftedapi.trade",
+    "pk": 3,
+    "fields": {
+      "item_wanted": 3,
+      "item_offered": 2,
+      "is_pending": false
+    }
+  }
+]
