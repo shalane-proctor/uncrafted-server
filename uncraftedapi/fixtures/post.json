@@ -36,7 +36,7 @@
     "pk": 3,
     "fields": {
       "posted_by_user": 2,
-      "owner_profile": 2,
+      "owner_profile": 3,
       "item_name": "Clay",
       "color": "red",
       "amount": "10lb",

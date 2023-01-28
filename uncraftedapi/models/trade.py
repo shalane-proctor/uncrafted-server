@@ -3,6 +3,8 @@ from .user import User
 from .post import Post
 
 class Trade(models.Model):
+    trade_by_user = models.ForeignKey(
+        User, related_name='tradeuser', on_delete=models.CASCADE)
     item_wanted = models.ForeignKey(
         Post, related_name='post1', on_delete=models.CASCADE)
     item_offered = models.ForeignKey(

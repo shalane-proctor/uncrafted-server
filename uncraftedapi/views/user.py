@@ -3,7 +3,7 @@ from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers, status
 from uncraftedapi.models import User
-
+from rest_framework import generics
 
 class UserSerializer(serializers.ModelSerializer):
   class Meta:
@@ -41,7 +41,6 @@ class UserView(ViewSet):
 
     def update(self, request, pk):
         user = User.objects.get(pk=pk)
-        user.uid = request.data["uid"]
         user.username = request.data["username"]
         user.favorite_craft = request.data["favorite_craft"]
         user.email = request.data["email"]
@@ -57,3 +56,11 @@ class UserView(ViewSet):
         user = User.objects.get(pk=pk)
         user.delete()
         return Response(None, status=status.HTTP_204_NO_CONTENT)
+
+
+class UserByUidView(generics.ListCreateAPIView):
+  serializer_class = UserSerializer
+
+  def get_queryset(self):
+    uid = self.kwargs['uid']
+    return User.objects.filter(uid=uid)

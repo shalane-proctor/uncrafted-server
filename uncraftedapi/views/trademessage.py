@@ -3,6 +3,7 @@ from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers, status
 from uncraftedapi.models import TradeMessage, Message, Trade
+from rest_framework import generics
 
 
 class TradeMessageSerializer(serializers.ModelSerializer):
@@ -52,3 +53,11 @@ class TradeMessageView(ViewSet):
         trade_message = TradeMessage.objects.get(pk=pk)
         trade_message.delete()
         return Response(None, status=status.HTTP_204_NO_CONTENT)
+
+
+class UserTradeMessageView(generics.ListCreateAPIView):
+  serializer_class = TradeMessageSerializer
+
+  def get_queryset(self):
+    sender_id = self.kwargs['sender_id']
+    return Message.objects.filter(trade__sender__id=sender_id)
