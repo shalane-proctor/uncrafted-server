@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework import serializers, status
 from uncraftedapi.models import Message, User
 from rest_framework.decorators import action
-
+from rest_framework import generics
 
 class MessageSerializer(serializers.ModelSerializer):
     """JSON serializer for posts
@@ -50,10 +50,10 @@ class MessageView(ViewSet):
 
     def update(self, request, pk):
         message = Message.objects.get(pk=pk)
-        sender_id = User.objects.get(sender_id = request.data["sender_id"])
-        receiver_id = User.objects.get(receiver_id = request.data["receiver_id"])
-        message.sender_id = sender_id
-        message.receiver_id = receiver_id
+        sender = User.objects.get(uid = request.data["sender"])
+        receiver = User.objects.get(uid = request.data["receiver"])
+        message.sender = sender
+        message.receiver = receiver
         message.subject = request.data["subject"]
         message.message_content = request.data["message_content"]
         message.is_new = request.data['is_new']
@@ -66,3 +66,18 @@ class MessageView(ViewSet):
         message = Message.objects.get(pk=pk)
         message.delete()
         return Response(None, status=status.HTTP_204_NO_CONTENT)
+
+class SenderMessageView(generics.ListCreateAPIView):
+  serializer_class = MessageSerializer
+
+  def get_queryset(self):
+    sender_id = self.kwargs['sender_id']
+    return Message.objects.filter(sender__id=sender_id)
+
+
+class ReceiverMessageView(generics.ListCreateAPIView):
+  serializer_class = MessageSerializer
+
+  def get_queryset(self):
+    receiver_id = self.kwargs['receiver_id']
+    return Message.objects.filter(receiver__id=receiver_id)

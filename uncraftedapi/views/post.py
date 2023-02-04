@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework import serializers, status
 from uncraftedapi.models import Post, User
 from rest_framework.decorators import action
-
+from rest_framework import generics, viewsets
 
 class PostSerializer(serializers.ModelSerializer):
     """JSON serializer for posts
@@ -36,7 +36,7 @@ class PostView(ViewSet):
 
     def create(self, request):
         posted_by_user = User.objects.get(uid=request.data["posted_by_user"])
-        owner_profile = User.objects.get(uid=request.data["owner_profile"])
+        owner_profile = User.objects.get(pk=request.data["owner_profile"])
         post = Post.objects.create(
             posted_by_user=posted_by_user,
             owner_profile=owner_profile,
@@ -55,7 +55,7 @@ class PostView(ViewSet):
     def update(self, request, pk):
 
         post = Post.objects.get(pk=pk)
-        owner_profile = User.objects.get(uid=request.data["owner_profile"])
+        owner_profile = User.objects.get(pk=request.data["owner_profile"])
         post.owner_profile = owner_profile
         post.item_name = request.data["item_name"]
         post.color = request.data["color"]
@@ -73,3 +73,29 @@ class PostView(ViewSet):
         post = Post.objects.get(pk=pk)
         post.delete()
         return Response(None, status=status.HTTP_204_NO_CONTENT)
+
+
+class UserPostView(generics.ListCreateAPIView):
+  serializer_class = PostSerializer
+
+  def get_queryset(self):
+    owner_profile_id = self.kwargs['owner_profile_id']
+    return Post.objects.filter(owner_profile__id=owner_profile_id)
+
+
+# class DetailPostViewSet(viewsets.ModelViewSet):
+#     queryset = Post.objects.all()
+#     serializer_class = PostSerializer
+#     http_method_names = ['get', 'post', 'put']
+#     filter_backends = [DjangoFilterBackend]
+#     filterset_fields = ['id', 'employee_identity']
+
+#     def filter_queryset(self, queryset):
+#         queryset = super().filter_queryset(queryset)
+#         start_date = self.request.query_params.get("start_date", None)
+
+#         if start_date is not None:
+#             print(start_date)
+#             queryset = queryset.filter(penalty__start_date=start_date)
+
+#         return queryset
