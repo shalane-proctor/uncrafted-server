@@ -65,8 +65,8 @@ class TradeView(ViewSet):
         return Response(None, status=status.HTTP_204_NO_CONTENT)
 
     def destroy(self, request, pk):
-        post = Post.objects.get(pk=pk)
-        post.delete()
+        trade = Trade.objects.get(pk=pk)
+        trade.delete()
         return Response(None, status=status.HTTP_204_NO_CONTENT)
 
 

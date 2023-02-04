@@ -61,3 +61,10 @@ class UserTradeMessageView(generics.ListCreateAPIView):
   def get_queryset(self):
     sender_id = self.kwargs['sender_id']
     return Message.objects.filter(trade__sender__id=sender_id)
+
+class ByTradeTradeMessageView(generics.ListCreateAPIView):
+  serializer_class = TradeMessageSerializer
+
+  def get_queryset(self):
+    trade_id = self.kwargs['trade_id']
+    return TradeMessage.objects.filter(trade__id=trade_id)

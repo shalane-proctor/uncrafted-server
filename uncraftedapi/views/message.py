@@ -67,9 +67,17 @@ class MessageView(ViewSet):
         message.delete()
         return Response(None, status=status.HTTP_204_NO_CONTENT)
 
-class UserMessageView(generics.ListCreateAPIView):
+class SenderMessageView(generics.ListCreateAPIView):
   serializer_class = MessageSerializer
 
   def get_queryset(self):
     sender_id = self.kwargs['sender_id']
     return Message.objects.filter(sender__id=sender_id)
+
+
+class ReceiverMessageView(generics.ListCreateAPIView):
+  serializer_class = MessageSerializer
+
+  def get_queryset(self):
+    receiver_id = self.kwargs['receiver_id']
+    return Message.objects.filter(receiver__id=receiver_id)

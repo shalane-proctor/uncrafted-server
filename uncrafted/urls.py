@@ -13,7 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from uncraftedapi.views import UserView, PostView, TradeView, MessageView, TradeMessageView, UserPostView, UserMessageView, PostTradeView, TradeRequestsView, UserOfferedTradeView, UserTradeMessageView, UserByUidView
+from uncraftedapi.views import UserView, PostView, TradeView, MessageView, TradeMessageView, UserPostView, SenderMessageView, ReceiverMessageView, PostTradeView, TradeRequestsView, UserOfferedTradeView, UserTradeMessageView, UserByUidView, ByTradeTradeMessageView
 from rest_framework import routers
 from uncraftedapi.views import check_user, register_user
 from django.conf.urls import include
@@ -44,12 +44,18 @@ urlpatterns = [
     path('post-user/<int:owner_profile_id>/',
          UserPostView.as_view(), name='user'),
     
-    path('message-user/<int:sender_id>/',
-         UserMessageView.as_view(), name='user'),
+    path('message-sender/<int:sender_id>/',
+         SenderMessageView.as_view(), name='user'),
     
-    path('trademessage-trade/<int:trade_id>/',
+    path('message-receiver/<int:receiver_id>/',
+         ReceiverMessageView.as_view(), name='receiver'),
+    
+    path('trademessage-user/<int:trade_id>/',
          UserTradeMessageView.as_view(), name='trade'),
     
     path('user-uid/<str:uid>/',
          UserByUidView.as_view(), name='uid'),
+    
+    path('trademessage-trade/<int:trade_id>/',
+         ByTradeTradeMessageView.as_view(), name='trade'),
 ]
