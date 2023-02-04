@@ -35,8 +35,8 @@ urlpatterns = [
     path('trade-post/<int:item_offered_id>/',
          PostTradeView.as_view(), name='posts'),
     
-    path('trade-wanted/<int:item_wanted_id>/',
-         TradeRequestsView.as_view(), name='item_wanted'),
+    path('trade-wanted/<int:owner_profile_id>/',
+         TradeRequestsView.as_view(), name='owner_profile_id'),
     
     path('trade-user/<int:trade_by_user_id>/',
          UserOfferedTradeView.as_view(), name='trade_by_user'),

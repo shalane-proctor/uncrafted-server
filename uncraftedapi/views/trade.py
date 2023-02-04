@@ -80,10 +80,11 @@ class UserOfferedTradeView(generics.ListCreateAPIView):
 
 class TradeRequestsView(generics.ListCreateAPIView):
   serializer_class = TradeSerializer
-
   def get_queryset(self):
-    item_wanted_id = self.kwargs['item_wanted_id']
-    return Trade.objects.filter(item_wanted__id=item_wanted_id)
+    owner_profile_id = self.kwargs['owner_profile_id']
+    return Trade.objects.filter(item_wanted__owner_profile__id=owner_profile_id)
+
+
 
 class PostTradeView(generics.ListCreateAPIView):
   serializer_class = TradeSerializer
